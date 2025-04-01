@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuppam KADA Tourism</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .map-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .map-section p {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Kuppam KADA Tourism</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="cultural-calendar.html">Cultural Calendar</a></li>
+            <li><a href="tourist-spots.html">Tourist Spots</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="auth.html" class="auth-link">Login/Signup</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-video">
+            <video autoplay muted loop playsinline class="background-video">
+                <source src="kuppamD_images/kuppam/kpm1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Kuppam</h1>
+            <p>Discover the confluence of cultures in Chittoor district's vibrant city</p>
+            <p class="sub-text">Where Telugu, Tamil, and Kannada cultures meet</p>
+            <a href="#about" class="cta-button">Explore Now</a>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <h2>Find Us</h2>
+        <p>Located in the heart of Chittoor district, Andhra Pradesh</p>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.008069343035!2d78.3421!3d12.7477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad5d2f793f9efd%3A0x3b0d5b2c5b2c5b2c!2sKuppam%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1648123456789!5m2!1sen!2sin"
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <main>
+        <section id="about" class="about-section">
+            <div class="about-container">
+                <h2 class="section-title">About Kuppam</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <div class="about-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Location</h3>
+                            <p>Located 115.8 kilometers south-east of Bangalore and 243 kilometers west of Chennai, Kuppam is a vibrant city in Chittoor district of Andhra Pradesh.</p>
+                        </div>
+                        
+                        <div class="about-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Demographics</h3>
+                            <p>Population: 21,963 (2011 census)<br>
+                            Languages: Telugu (53.73%), Tamil (35.14%), Kannada (3.51%)</p>
+                        </div>
+
+                        <div class="about-card">
+                            <i class="fas fa-industry"></i>
+                            <h3>Economy</h3>
+                            <p>Known for its granite industry, educational institutions, and agricultural produce. Home to the famous 'Kuppam Green' granite.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-gallery">
+                        <img src="kuppamD_images/kuppam/punnami hotel.png" alt="Punnami Hotel">
+                        <img src="kuppamD_images/kuppam/Screenshot 2025-03-28 164001.png" alt="City View">
+                        <img src="kuppamD_images/kuppam/Screenshot 2025-03-28 162641.png" alt="Local Area">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="highlights">
+            <h2>Why Visit Kuppam?</h2>
+            <div class="highlight-cards">
+                <div class="card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Educational Hub</h3>
+                    <p>Home to prestigious institutions including Dravidian University, P.E.S. Medical College, Kuppam Engineering College, and Agastya International Foundation's 172-acre Campus Creativity Lab.</p>
+                    <a href="educational-hub.html" class="card-link">Explore Schools & Colleges</a>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-mountain"></i>
+                    <h3>Tourist Spots</h3>
+                    <p>Explore historic Kangundi Fort, ancient temples, and scenic landscapes.</p>
+                    <a href="tourist-spots.html" class="card-link">View Tourist Spots</a>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-industry"></i>
+                    <h3>Granite Industry</h3>
+                    <p>Famous for 'Kuppam Green' granite, exported worldwide. Home to major industries including Hydro Extrusion India Pvt Ltd (now part of Hindalco Industries Ltd).</p>
+                    <a href="https://www.google.com/search?q=kuppam+granites" class="card-link" target="_blank">Explore Granite Industry</a>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-train"></i>
+                    <h3>Connectivity</h3>
+                    <p>Well-connected via NH42 and railways. Regular services by APSRTC, TNSTC, and KSRTC.</p>
+                    <div class="transport-links">
+                        <a href="https://www.easemytrip.com/railways/kuppam-kpn-railway-station/" class="card-link" target="_blank">Railway Info</a>
+                        <a href="http://makemytrip.com/bus-tickets/kuppam-city-online-booking.html" class="card-link" target="_blank">Bus Info</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h3>Pleasant Climate</h3>
+                    <p>Enjoy tropical climate with average temperature of 22.3°C. Best visited during November to September.</p>
+                    <a href="https://www.google.com/search?q=kuppam+weather" class="card-link" target="_blank">Check Weather</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contributors">
+            <h2>Our Contributors</h2>
+            <div class="contributor-cards">
+                <div class="contributor-card">
+                    <div class="contributor-image">
+                        <img src="images/cbn.jpeg" alt="Chandrababu Naidu">
+                        <div class="social-overlay">
+                            <a href="https://www.facebook.com/chandrababunaidu.m.9/photos/?_rdr" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/ncbn.official/?hl=en" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h3>N. Chandrababu Naidu</h3>
+                    <p>Member of Legislative Assembly (M.L.A)</p>
+                </div>
+
+                <div class="contributor-card">
+                    <div class="contributor-image">
+                        <img src="images/vicky.jpeg" alt="Kuppam Dairies Vicky">
+                        <div class="social-overlay">
+                            <a href="https://www.facebook.com/kpmdrs2427?rdid=asmoijBufrk774iC&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1B2jGiuLFU%2F#" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/kuppam_diaries/p/DGS1SGayWlp/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h3>Vicky</h3>
+                    <p>Kuppam Dairies</p>
+                </div>
+
+                <div class="contributor-card">
+                    <div class="contributor-image">
+                        <img src="images/kada.png" alt="KADA Tourism">
+                        <div class="social-overlay">
+                            <a href="https://www.instagram.com/k.a.d.a_official/?igsh=MWx2ZWlnb2t5d3Bsdg%3D%3D#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://x.com/i/flow/login?redirect_after_login=%2Fpd_kada" target="_blank"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <h3>KADA Tourism</h3>
+                    <p>Kuppam Area Development Authority</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cultural-calendar.html">Cultural Calendar</a></li>
+                    <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/k.a.d.a_official/?igsh=MWx2ZWlnb2t5d3Bsdg%3D%3D#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/i/flow/login?redirect_after_login=%2Fpd_kada" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Kuppam KADA Tourism. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

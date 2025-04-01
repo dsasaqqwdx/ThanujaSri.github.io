@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultural Calendar - Kuppam KADA Tourism</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Enhanced Calendar and Festival Styles */
+        .yearly-calendar {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .month {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .month:hover {
+            transform: translateY(-5px);
+        }
+
+        .month h3 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            padding: 10px 0;
+            border-radius: 8px;
+        }
+
+        .weekdays span {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .date-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .date-grid span {
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .special-date {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .special-date:hover {
+            transform: scale(1.15);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Festival Details Styling */
+        .festival-details {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .festival-details.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .festival-details h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .festival-details h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border-radius: 3px;
+        }
+
+        /* Timeline Enhanced Styling */
+        .timeline-container {
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #6a11cb, #2575fc);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            animation: slideIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-date {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-content img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Interactive Elements */
+        .festival-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Kuppam KADA Tourism</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cultural-calendar.html" class="active">Cultural Calendar</a></li>
+            <li><a href="tourist-spots.html">Tourist Spots</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Cultural Calendar 2025</h1>
+        
+        <!-- Calendar Section with Correct Day Alignment -->
+        <section class="yearly-calendar">
+            <h1>Cultural Calendar 2025</h1>
+            
+            <!-- January 2025 (Starts on Wednesday) -->
+            <div class="month">
+                <h3>January 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span>
+                        <span class="special-date" data-event="New Year">1</span>
+                        <span>2</span><span>3</span><span>4</span>
+                        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+                        <span>12</span>
+                        <span class="special-date" data-event="Bhogi">13</span>
+                        <span class="special-date" data-event="Makara Sankranti">14</span>
+                        <span>15</span><span>16</span><span>17</span><span>18</span>
+                        <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+                        <span class="special-date" data-event="Republic Day">26</span>
+                        <span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- February 2025 (Starts on Saturday) -->
+            <div class="month">
+                <h3>February 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
+                        <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+                        <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+                        <span>23</span><span>24</span><span>25</span>
+                        <span class="special-date" data-event="Maha Shivaratri">26</span>
+                        <span>27</span>
+                        <span class="special-date" data-event="Ramadan Mubarak">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- March 2025 (Starts on Saturday) -->
+            <div class="month">
+                <h3>March 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
+                        <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+                        <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+                        <span class="special-date" data-event="Holi">14</span>
+                        <span>15</span>
+                        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+                        <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
+                        <span class="special-date" data-event="Ugadi">30</span>
+                        <span class="special-date" data-event="Ramzaan">31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- April 2025 (Starts on Tuesday) -->
+            <div class="month">
+                <h3>April 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        <span class="special-date" data-event="Sri Rama Navami">6</span>
+                        <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+                        <span class="special-date" data-event="Hanuman Jayanti">12</span>
+                        <span>13</span>
+                        <span>14</span><span>15</span><span>16</span><span>17</span>
+                        <span class="special-date" data-event="Good Friday">18</span>
+                        <span>19</span>
+                        <span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
+                        <span>27</span><span>28</span><span>29</span><span>30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- May 2025 (Starts on Thursday) -->
+            <div class="month">
+                <h3>May 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span></span>
+                        <span class="special-date" data-event="International Labor Day">1</span>
+                        <span>2</span><span>3</span>
+                        <span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                        <span>11</span>
+                        <span class="special-date" data-event="Buddha Purnima">12</span>
+                        <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+                        <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+                        <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- June 2025 (Starts on Sunday) -->
+            <div class="month">
+                <h3>June 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                        <span class="special-date" data-event="Bakrid">7</span>
+                        <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                        <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                        <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+                        <span>29</span><span>30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- July 2025 (Starts on Tuesday) -->
+            <div class="month">
+                <h3>July 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+                        <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
+                        <span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span>
+                        <span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- August 2025 (Starts on Friday) -->
+            <div class="month">
+                <h3>August 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span></span><span></span><span>1</span><span>2</span>
+                        <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+                        <span class="special-date" data-event="Raksha Bandhan">9</span>
+                        <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                        <span class="special-date" data-event="Independence Day">15</span>
+                        <span class="special-date" data-event="Janmashtami">16</span>
+                        <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span>
+                        <span>24</span><span>25</span><span>26</span>
+                        <span class="special-date" data-event="Ganesh Chaturthi">27</span>
+                        <span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- September 2025 (Starts on Monday) -->
+            <div class="month">
+                <h3>September 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        <span class="special-date" data-event="Anant Chaturdashi">6</span>
+                        <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+                        <span>14</span>
+                        <span class="special-date" data-event="Onam">15</span>
+                        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                        <span class="special-date" data-event="First day of Sharad Navratri">22</span>
+                        <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+                        <span class="special-date" data-event="Maha Saptami">29</span>
+                        <span>30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- October 2025 (Starts on Wednesday) -->
+            <div class="month">
+                <h3>October 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span>1</span>
+                        <span class="special-date" data-event="Gandhi Jayanti">2</span>
+                        <span>3</span><span>4</span>
+                        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+                        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+                        <span>19</span>
+                        <span class="special-date" data-event="Deepavali">20</span>
+                        <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+                        <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- November 2025 (Starts on Saturday) -->
+            <div class="month">
+                <h3>November 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
+                        <span>2</span><span>3</span><span>4</span>
+                        <span class="special-date" data-event="Guru Nanak Jayanti">5</span>
+                        <span>6</span><span>7</span><span>8</span>
+                        <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+                        <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
+                        <span>30</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- December 2025 (Starts on Monday) -->
+            <div class="month">
+                <h3>December 2025</h3>
+                <div class="dates">
+                    <div class="weekdays">
+                        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                    </div>
+                    <div class="date-grid">
+                        <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+                        <span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+                        <span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+                        <span>21</span><span>22</span><span>23</span><span>24</span>
+                        <span class="special-date" data-event="Christmas">25</span>
+                        <span>26</span><span>27</span>
+                        <span>28</span><span>29</span><span>30</span><span>31</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <!-- Festival Details Container (Initially Hidden) -->
+        <div id="festival-details" class="festival-details" style="display: none;">
+            <h2 id="festival-title"></h2>
+            <div id="festival-content"></div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-container">
+            <h2>Festival Timeline 2025</h2>
+            <div class="timeline">
+                <!-- January Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">January 1, 2025</div>
+                    <div class="timeline-content">
+                        <h3>New Year</h3>
+                        <img src="final_cal/newyear.jpeg" alt="New Year Celebrations">
+                        <p>First day of the year 2025, celebrated worldwide with new hopes and resolutions.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">January 13, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Bhogi</h3>
+                        <img src="final_cal/bhoghi.jpeg" alt="Bhogi Festival">
+                        <p>First day of Pongal festivities, marking the beginning of harvest season.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">January 14, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Makara Sankranti</h3>
+                        <img src="images/sankranthi.webp" alt="Sankranti">
+                        <p>Harvest festival celebrating the sun's northward journey.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">January 26, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Republic Day</h3>
+                        <img src="final_cal/republic.jpeg" alt="Republic Day">
+                        <p>National festival celebrating the adoption of Indian Constitution.</p>
+                    </div>
+                </div>
+                
+                <!-- February Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">February 26, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Maha Shivaratri</h3>
+                        <img src="final_cal/mahashivratri-2024.webp" alt="Maha Shivaratri">
+                        <p>The great night of Shiva, celebrated with devotion and night-long prayers.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">February 28, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Ramadan Mubarak</h3>
+                        <img src="final_cal/ramdan.webp" alt="Ramadan">
+                        <p>Beginning of the holy month of Ramadan.</p>
+                    </div>
+                </div>
+                
+                <!-- March Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">March 14, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Holi</h3>
+                        <img src="final_cal/holi.jpeg" alt="Holi">
+                        <p>Festival of colors celebrating the victory of good over evil.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">March 30, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Ugadi</h3>
+                        <img src="final_cal/ugadi.jpeg" alt="Ugadi">
+                        <p>Telugu New Year marking new beginnings.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">March 31, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Ramzaan</h3>
+                        <img src="final_cal/ramzan.jpeg" alt="Ramzaan">
+                        <p>Holy month of fasting and spiritual reflection.</p>
+                    </div>
+                </div>
+
+                <!-- April Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">April 6, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Sri Rama Navami</h3>
+                        <img src="final_cal/rama navami.jpeg" alt="Rama Navami">
+                        <p>Celebrating the birth of Lord Rama.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">April 12, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Hanuman Jayanti</h3>
+                        <img src="final_cal/hanuman.jpeg" alt="Hanuman Jayanti">
+                        <p>Birthday celebrations of Lord Hanuman.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">April 18, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Good Friday</h3>
+                        <img src="final_cal/good friday.jpeg" alt="Good Friday">
+                        <p>Commemorating the crucifixion of Jesus Christ.</p>
+                    </div>
+                </div>
+
+                <!-- May Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">May 1, 2025</div>
+                    <div class="timeline-content">
+                        <h3>International Labor Day</h3>
+                        <img src="final_cal/labors day.jpeg" alt="Labor Day">
+                        <p>Celebrating workers' rights and contributions.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">May 12, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Buddha Purnima</h3>
+                        <img src="final_cal/budhha purnima.jpeg" alt="Buddha Purnima">
+                        <p>Celebrating Buddha's birth, enlightenment, and nirvana.</p>
+                    </div>
+                </div>
+
+                <!-- June Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">June 7, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Bakrid</h3>
+                        <img src="final_cal/bakrid.jpeg" alt="Bakrid">
+                        <p>Festival of sacrifice in Islamic tradition.</p>
+                    </div>
+                </div>
+
+                <!-- August Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">August 9, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Raksha Bandhan</h3>
+                        <img src="final_cal/bandhan.jpeg" alt="Raksha Bandhan">
+                        <p>Celebrating the sacred bond between brothers and sisters.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">August 15, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Independence Day</h3>
+                        <img src="final_cal/independence day.jpeg" alt="Independence Day">
+                        <p>Celebrating India's independence from British rule.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">August 16, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Janmashtami</h3>
+                        <img src="final_cal/janmastami.jpeg" alt="Janmashtami">
+                        <p>Celebrating the birth of Lord Krishna.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">August 27, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Ganesh Chaturthi</h3>
+                        <img src="final_cal/ganesh.jpeg" alt="Ganesh Chaturthi">
+                        <p>Festival celebrating Lord Ganesha.</p>
+                    </div>
+                </div>
+
+                <!-- September Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">September 6, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Anant Chaturdashi</h3>
+                        <img src="final_cal/anant.jpeg" alt="Anant Chaturdashi">
+                        <p>Final day of Ganesh Chaturthi celebrations.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">September 15, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Milad-un-Nabi & Onam</h3>
+                        <img src="final_cal/milad.jpeg" alt="Milad-un-Nabi">
+                        <p>Prophet Muhammad's birthday celebration & Kerala's harvest festival.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">September 22, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Sharad Navratri Begins</h3>
+                        <img src="final_cal/sharad.jpeg" alt="Navratri">
+                        <p>Nine nights dedicated to Goddess Durga.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">September 29, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Maha Saptami</h3>
+                        <img src="final_cal/maha saptami.jpeg" alt="Maha Saptami">
+                        <p>Seventh day of Navratri celebrations.</p>
+                    </div>
+                </div>
+
+                <!-- October Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">October 2, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Gandhi Jayanti</h3>
+                        <img src="final_cal/gandhi.jpeg" alt="Gandhi Jayanti">
+                        <p>Birth anniversary of Mahatma Gandhi.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">October 20, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Deepavali</h3>
+                        <img src="final_cal/diwali.jpeg" alt="Deepavali">
+                        <p>Festival of lights celebrating victory of good over evil.</p>
+                    </div>
+                </div>
+
+                <!-- November Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">November 5, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Guru Nanak Jayanti</h3>
+                        <img src="final_cal/guru nanak.jpeg" alt="Guru Nanak Jayanti">
+                        <p>Birth anniversary of Guru Nanak Dev Ji.</p>
+                    </div>
+                </div>
+
+                <!-- December Events -->
+                <div class="timeline-item">
+                    <div class="timeline-date">December 25, 2025</div>
+                    <div class="timeline-content">
+                        <h3>Christmas</h3>
+                        <img src="final_cal/christmas.jpeg" alt="Christmas">
+                        <p>Celebrating the birth of Jesus Christ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cultural-calendar.html">Cultural Calendar</a></li>
+                    <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Kuppam KADA Tourism. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    const festivalDetails = {
+        'New Year': {
+            title: 'New Year 2025',
+            content: `
+                <div class="festival-content">
+                    
+                    <p>New Year marks the beginning of the calendar year, celebrated worldwide with festivities and new resolutions.</p>
+                    <div class="festival-highlights">
+                        <h4>Celebrations Include:</h4>
+                        <ul>
+                            <li>Midnight countdown celebrations</li>
+                            <li>Fireworks displays</li>
+                            <li>New Year resolutions</li>
+                            <li>Family gatherings and parties</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        'Republic Day': {
+            title: 'Republic Day 2025',
+            content: `
+                <div class="festival-content">
+                    
+                    <p>Republic Day commemorates the adoption of the Indian Constitution. It's celebrated with grand parades and cultural events.</p>
+                    <div class="festival-highlights">
+                        <h4>Key Events:</h4>
+                        <ul>
+                            <li>National parade in New Delhi</li>
+                            <li>Flag hoisting ceremonies</li>
+                            <li>Cultural performances</li>
+                            <li>Display of military strength</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        'Bhoghi': {
+            title: 'Bhoghi Festival 2025',
+            content: `
+                <div class="festival-content">
+                    
+                    <p>Bhogi marks the beginning of the four-day Pongal festival, symbolizing new beginnings and prosperity.</p>
+                    <div class="festival-highlights">
+                        <h4>Traditions:</h4>
+                        <ul>
+                            <li>Bonfire celebrations</li>
+                            <li>Discarding old belongings</li>
+                            <li>House cleaning and decoration</li>
+                            <li>Traditional songs and dances</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        'Maha Saptami': {
+    title: 'Maha Saptami 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Maha Saptami is the seventh day of Durga Puja, marking the beginning of major celebrations with grand rituals, processions, and cultural performances.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Early morning Nabapatrika Snan ritual</li>
+                    <li>Elaborate Durga Puja ceremonies</li>
+                    <li>Cultural programs and dance performances</li>
+                    <li>Community feasts and bhog distribution</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+    'Onam': {
+        title: 'Onam 2025',
+        content: `
+        <div class="festival-content">
+            
+            <p>Onam is a harvest festival celebrated in Kerala, known for its vibrant cultural events, grand feasts, and the legendary return of King Mahabali.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Traditional Pookalam (floral rangoli) decorations</li>
+                    <li>Onam Sadya (elaborate feast served on banana leaves)</li>
+                    <li>Vallam Kali (snake boat race)</li>
+                    <li>Folk dances like Kaikottikali and Pulikali</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+        'Milad-un-Nabi,Onam': {
+        title: 'Milad-un-Nabi 2025',
+        content: `
+        <div class="festival-content">
+            
+            <p>Milad-un-Nabi, also known as Eid-e-Milad, commemorates the birth of Prophet Muhammad with prayers, processions, and religious gatherings.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers in mosques</li>
+                    <li>Religious processions</li>
+                    <li>Charity and community service</li>
+                    <li>Recitation of Prophet Muhammad's teachings</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+        'First day of Sharad Navratri': {
+        title: 'First day of Sharad Navratri 2025',
+        content: `
+        <div class="festival-content">
+            
+            <p>The first day of Sharad Navaratri marks the beginning of the nine-day festival dedicated to Goddess Durga, with fasting, prayers, and cultural performances.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Kalash Sthapana (Ghatasthapana) ritual</li>
+                    <li>Devotional songs and prayers</li>
+                    <li>Fasting and special food preparations</li>
+                    <li>Garba and Dandiya dance celebrations</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+
+
+        'Holi': {
+        title: 'Holi 2025',
+        content: `
+        <div class="festival-content">
+            
+            <p>Holi, the festival of colors, celebrates the arrival of spring with joyous gatherings, color play, and festive sweets.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Playing with colors (Gulal)</li>
+                    <li>Bonfire on Holika Dahan</li>
+                    <li>Traditional sweets like Gujiya</li>
+                    <li>Music, dance, and festive gatherings</li>
+                </ul>
+            </div>
+        </div>
+        `
+    },
+
+        'Ugadi': {
+        title: 'Ugadi 2025',
+        content: `
+        <div class="festival-content">
+            
+            <p>Ugadi marks the Telugu and Kannada New Year, symbolizing new beginnings with special rituals, food, and celebrations.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Preparing and eating Ugadi Pachadi</li>
+                    <li>Panchanga Shravanam (New Year predictions)</li>
+                    <li>Temple visits and prayers</li>
+                    <li>Cultural programs and celebrations</li>
+                </ul>
+            </div>
+        </div>
+        `
+    },
+
+
+        
+        'Makara Sankranti': {
+            title: 'Makara Sankranti 2025',
+            content: `
+                <div class="festival-content">
+                    
+                    <p>Makar Sankranti is a harvest festival celebrating the sun's northward journey, marked by kite flying and special delicacies.</p>
+                    <div class="festival-highlights">
+                        <h4>Festival Highlights:</h4>
+                        <ul>
+                            <li>Kite flying competitions</li>
+                            <li>Traditional sweets distribution</li>
+                            <li>Rangoli making</li>
+                            <li>Cultural programs</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        'Ramzaan': {
+        title: 'Ramzaan (Eid-ul-Fitr) 2025',
+        content: `
+        <div class="festival-content">
+           
+            <p>Ramzan (Eid-ul-Fitr) marks the end of the holy month of Ramadan, celebrated with feasts, prayers, and acts of charity.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special Eid prayers at mosques</li>
+                    <li>Breaking the fast with grand feasts (Iftar)</li>
+                    <li>Charity and donations (Zakat & Fitrah)</li>
+                    <li>Family gatherings and exchanging gifts</li>
+                </ul>
+            </div>
+        </div>
+    `
+    },  
+        'Bhogi': {
+    title: 'Bhogi 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Bhogi marks the beginning of the four-day Pongal festival, symbolizing the discarding of old habits and welcoming new beginnings.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Bonfire with old belongings</li>
+                    <li>Decorating houses with rangoli</li>
+                    <li>Special dishes prepared</li>
+                    <li>Community celebrations</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Makar Sankranti': {
+    title: 'Makar Sankranti 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Makar Sankranti is a harvest festival celebrating the sun's northward journey, marked by kite flying and special delicacies.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Kite flying competitions</li>
+                    <li>Traditional sweets distribution</li>
+                    <li>Rangoli making</li>
+                    <li>Cultural programs</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+    'Bakrid': {
+    title: 'Bakrid (Eid al-Adha) 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Bakrid, also known as Eid al-Adha, is a major Islamic festival commemorating the willingness of Ibrahim to sacrifice his son as an act of obedience to God.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers at mosques</li>
+                    <li>Animal sacrifice and distribution of meat</li>
+                    <li>Charitable donations</li>
+                    <li>Family feasts and celebrations</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Raksha Bandhan': {
+    title: 'Raksha Bandhan 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Raksha Bandhan is a festival celebrating the bond between brothers and sisters, marked by the tying of a protective thread (rakhi) on the brother's wrist.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Tying of Rakhi</li>
+                    <li>Exchanging gifts between siblings</li>
+                    <li>Family gatherings</li>
+                    <li>Traditional sweets and delicacies</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Janmashtami': {
+    title: 'Janmashtami 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Janmashtami celebrates the birth of Lord Krishna with devotional songs, fasting, and reenactments of Krishna's childhood events.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Midnight prayers and celebrations</li>
+                    <li>Dahi Handi competitions</li>
+                    <li>Bhajans and kirtans</li>
+                    <li>Fasting and special Krishna puja</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Ganesh Chaturthi': {
+    title: 'Ganesh Chaturthi 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Ganesh Chaturthi marks the birth of Lord Ganesha and is celebrated with grand processions, pujas, and the immersion of Ganesh idols.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Installation of Ganesh idols</li>
+                    <li>Special aartis and prayers</li>
+                    <li>Modak and other festive sweets</li>
+                    <li>Ganesh Visarjan (idol immersion)</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Anant Chaturdashi': {
+    title: 'Anant Chaturdashi 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Anant Chaturdashi is the final day of Ganesh Chaturthi, marked by the grand immersion (Visarjan) of Lord Ganesha idols in water.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Ganesh Visarjan processions</li>
+                    <li>Devotional songs and dances</li>
+                    <li>Offerings of sweets and prayers</li>
+                    <li>Community feasts</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Milad-un-Nabi': {
+    title: 'Milad-un-Nabi 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Milad-un-Nabi, also known as Mawlid, commemorates the birth of Prophet Muhammad with prayers and religious gatherings.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers and sermons</li>
+                    <li>Recitations of the Quran</li>
+                    <li>Charitable activities</li>
+                    <li>Community feasts</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Onam': {
+    title: 'Onam 2025',
+    content: `
+        <div class="festival-content"><img src="images/onam.jpg" alt="Onam Festival">
+            <p>Onam is Kerala's biggest festival, celebrating the return of King Mahabali with traditional feasts, boat races, and flower decorations.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Pookalam (floral rangoli)</li>
+                    <li>Onasadya (grand feast)</li>
+                    <li>Vallamkali (boat races)</li>
+                    <li>Traditional music and dance</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Gandhi Jayanti': {
+    title: 'Gandhi Jayanti 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Gandhi Jayanti commemorates the birth of Mahatma Gandhi and is observed with prayers, tributes, and community service.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Tributes to Mahatma Gandhi</li>
+                    <li>Prayer meetings</li>
+                    <li>Social service activities</li>
+                    <li>Documentary screenings</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Deepavali': {
+    title: 'Deepavali 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Deepavali, the festival of lights, signifies the victory of light over darkness, celebrated with lamps, sweets, and fireworks.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Lighting of diyas and candles</li>
+                    <li>Fireworks and celebrations</li>
+                    <li>Exchange of sweets and gifts</li>
+                    <li>Lakshmi puja</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Christmas': {
+    title: 'Christmas 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Christmas celebrates the birth of Jesus Christ with joy, carols, feasts, and the exchange of gifts.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Midnight Mass and prayers</li>
+                    <li>Christmas tree decorations</li>
+                    <li>Santa Claus and gift exchanges</li>
+                    <li>Festive feasts and sweets</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+
+'Ramadan Mubarak': {
+    title: 'Ramadan 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Ramadan is a holy month of fasting, prayer, and reflection observed by Muslims worldwide, culminating in the joyous celebration of Eid-ul-Fitr.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Daily fasting from dawn to dusk</li>
+                    <li>Special prayers (Taraweeh)</li>
+                    <li>Charity and helping the needy</li>
+                    <li>Breaking fast with Iftar</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+'Bakrid': {
+    title: 'Bakrid (Eid al-Adha) 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Bakrid, also known as Eid al-Adha, is a major Islamic festival commemorating the willingness of Ibrahim to sacrifice his son as an act of obedience to God.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers at mosques</li>
+                    <li>Animal sacrifice and distribution of meat</li>
+                    <li>Charitable donations</li>
+                    <li>Family feasts and celebrations</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Raksha Bandhan': {
+    title: 'Raksha Bandhan 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Raksha Bandhan is a festival celebrating the bond between brothers and sisters, marked by the tying of a protective thread (rakhi) on the brother's wrist.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Tying of Rakhi</li>
+                    <li>Exchanging gifts between siblings</li>
+                    <li>Family gatherings</li>
+                    <li>Traditional sweets and delicacies</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Janmashtami': {
+    title: 'Janmashtami 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Janmashtami celebrates the birth of Lord Krishna with devotional songs, fasting, and reenactments of Krishna's childhood events.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Midnight prayers and celebrations</li>
+                    <li>Dahi Handi competitions</li>
+                    <li>Bhajans and kirtans</li>
+                    <li>Fasting and special Krishna puja</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Ganesh Chaturthi': {
+    title: 'Ganesh Chaturthi 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Ganesh Chaturthi marks the birth of Lord Ganesha and is celebrated with grand processions, pujas, and the immersion of Ganesh idols.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Installation of Ganesh idols</li>
+                    <li>Special aartis and prayers</li>
+                    <li>Modak and other festive sweets</li>
+                    <li>Ganesh Visarjan (idol immersion)</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Anant Chaturdashi': {
+    title: 'Anant Chaturdashi 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Anant Chaturdashi is the final day of Ganesh Chaturthi, marked by the grand immersion (Visarjan) of Lord Ganesha idols in water.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Ganesh Visarjan processions</li>
+                    <li>Devotional songs and dances</li>
+                    <li>Offerings of sweets and prayers</li>
+                    <li>Community feasts</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Milad-un-Nabi': {
+    title: 'Milad-un-Nabi 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Milad-un-Nabi, also known as Mawlid, commemorates the birth of Prophet Muhammad with prayers and religious gatherings.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers and sermons</li>
+                    <li>Recitations of the Quran</li>
+                    <li>Charitable activities</li>
+                    <li>Community feasts</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Onam': {
+    title: 'Onam 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Onam is Kerala's biggest festival, celebrating the return of King Mahabali with traditional feasts, boat races, and flower decorations.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Pookalam (floral rangoli)</li>
+                    <li>Onasadya (grand feast)</li>
+                    <li>Vallamkali (boat races)</li>
+                    <li>Traditional music and dance</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Gandhi Jayanti': {
+    title: 'Gandhi Jayanti 2025',
+    content: `
+        <div class="festival-content">
+            <p>Gandhi Jayanti commemorates the birth of Mahatma Gandhi and is observed with prayers, tributes, and community service.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Tributes to Mahatma Gandhi</li>
+                    <li>Prayer meetings</li>
+                    <li>Social service activities</li>
+                    <li>Documentary screenings</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Deepavali': {
+    title: 'Deepavali 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Deepavali, the festival of lights, signifies the victory of light over darkness, celebrated with lamps, sweets, and fireworks.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Lighting of diyas and candles</li>
+                    <li>Fireworks and celebrations</li>
+                    <li>Exchange of sweets and gifts</li>
+                    <li>Lakshmi puja</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Christmas': {
+    title: 'Christmas 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Christmas celebrates the birth of Jesus Christ with joy, carols, feasts, and the exchange of gifts.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Midnight Mass and prayers</li>
+                    <li>Christmas tree decorations</li>
+                    <li>Santa Claus and gift exchanges</li>
+                    <li>Festive feasts and sweets</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+
+'Sri Rama Navami': {
+    title: 'Sri Rama Navami 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Sri Rama Navami celebrates the birth of Lord Rama with devotional songs, temple processions, and special prayers.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Reading of Ramayana</li>
+                    <li>Temple processions of Lord Rama</li>
+                    <li>Special bhajans and kirtans</li>
+                    <li>Distribution of Panakam and prasadam</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Hanuman Jayanti': {
+    title: 'Hanuman Jayanti 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Hanuman Jayanti marks the birth of Lord Hanuman, the devotee of Lord Rama, celebrated with prayers and recitations of the Hanuman Chalisa.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Reading of Hanuman Chalisa</li>
+                    <li>Temple visits and pujas</li>
+                    <li>Devotional songs and bhajans</li>
+                    <li>Offerings of sweets and flowers</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Good Friday': {
+    title: 'Good Friday 2025',
+    content: `
+        <div class="festival-content">
+           
+            <p>Good Friday commemorates the crucifixion of Jesus Christ, observed with fasting, prayers, and church services.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Church services and prayers</li>
+                    <li>Reading of the Passion of Christ</li>
+                    <li>Fasting and penance</li>
+                    <li>Silent reflection and mourning</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'International Labor Day': {
+    title: 'International Labor Day 2025',
+    content: `
+        <div class="festival-content">
+            <p>International Labor Day, also known as May Day, honors the contributions of workers and the labor movement worldwide.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Rallies and speeches</li>
+                    <li>Tributes to workers' rights movements</li>
+                    <li>Awareness programs on labor laws</li>
+                    <li>Celebrations of workforce achievements</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+'Buddha Purnima': {
+    title: 'Buddha Purnima 2025',
+    content: `
+        <div class="festival-content">
+            
+            <p>Buddha Purnima celebrates the birth, enlightenment, and passing of Lord Buddha with prayers, meditation, and kindness.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Special prayers and meditation</li>
+                    <li>Reading of Buddhist scriptures</li>
+                    <li>Acts of kindness and charity</li>
+                    <li>Decorating Buddha statues with flowers</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+
+
+        // Continue with more festivals...
+        'Independence Day': {
+            title: 'Independence Day 2025',
+            content: `
+                <div class="festival-content">
+                    
+                    <p>India's Independence Day commemorates the nation's freedom from British rule. It's a day of patriotic celebration.</p>
+                    <div class="festival-highlights">
+                        <h4>Celebrations Include:</h4>
+                        <ul>
+                            <li>Flag hoisting ceremony</li>
+                            <li>Prime Minister's address</li>
+                            <li>Patriotic programs</li>
+                            <li>Cultural events</li>
+                        </ul>
+                    </div>
+                </div>
+            `
+        },
+        'Guru Nanak Jayanti': {
+        title: 'Guru Nanak Jayanti 2025',
+        content: `
+        <div class="festival-content">
+           
+            <p>Guru Nanak Jayanti celebrates the birth anniversary of Guru Nanak Dev Ji, the founder of Sikhism, with prayers, kirtans, and community service.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Gurudwara prayers and kirtans</li>
+                    <li>Nagar Kirtan processions</li>
+                    <li>Langar (community feasts)</li>
+                    <li>Recitation of Guru Granth Sahib</li>
+                </ul>
+            </div>
+        </div>
+    `
+},
+
+        'Maha Shivaratri': {
+        title: 'Maha Shivaratri 2025',
+        content: `
+        <div class="festival-content">
+            <p>Maha Shivaratri is a Hindu festival dedicated to Lord Shiva, observed with fasting, night-long vigils, and prayers.</p>
+            <div class="festival-highlights">
+                <h4>Festival Highlights:</h4>
+                <ul>
+                    <li>Night-long worship of Lord Shiva</li>
+                    <li>Fasting and meditation</li>
+                    <li>Rudra Abhishekam and special prayers</li>
+                    <li>Bhajans and spiritual discourses</li>
+                </ul>
+            </div>
+        </div>
+    `
+},   
+
+        // Add all other festivals similarly...
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle special date clicks
+        document.querySelectorAll('.special-date').forEach(date => {
+            date.addEventListener('click', function() {
+                const festivalName = this.getAttribute('data-event');
+                showFestivalDetails(festivalName);
+            });
+        });
+
+        // Initialize timeline animation
+        initializeTimeline();
+    });
+
+    function showFestivalDetails(festivalName) {
+        const detailsContainer = document.getElementById('festival-details');
+        const festivalDetail = festivalDetails[festivalName];
+
+        if (festivalDetail) {
+            detailsContainer.innerHTML = `
+                <h2>${festivalDetail.title}</h2>
+                ${festivalDetail.content}
+                <button class="close-details">Close</button>
+            `;
+
+            detailsContainer.style.display = 'block';
+            setTimeout(() => detailsContainer.classList.add('active'), 10);
+
+            // Scroll to details
+            detailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Add close button functionality
+            document.querySelector('.close-details').addEventListener('click', () => {
+                detailsContainer.classList.remove('active');
+                setTimeout(() => detailsContainer.style.display = 'none', 500);
+            });
+        }
+    }
+
+    function initializeTimeline() {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+    }
+
+    // Add smooth scrolling for all internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add search functionality
+    function searchFestivals(searchTerm) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        searchTerm = searchTerm.toLowerCase();
+
+        timelineItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Add filter functionality
+    function filterFestivalsByMonth(month) {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        timelineItems.forEach(item => {
+            const itemMonth = item.querySelector('.timeline-date').textContent.split(' ')[0];
+            if (month === 'all' || itemMonth.toLowerCase() === month.toLowerCase()) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+    </script>
+</body>
+</html> 
