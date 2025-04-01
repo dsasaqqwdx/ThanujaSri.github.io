@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Spots - Kuppam KADA Tourism</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Modern Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+        /* Base Styles */
+        .tourist-spots-container {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .spot-card {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            margin: 30px auto;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 1200px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Headings */
+        .spot-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: #60a5fa;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .spot-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6);
+            border-radius: 2px;
+        }
+
+        .spot-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #93c5fd;
+            font-size: 1.8rem;
+            margin: 15px 0;
+        }
+
+        /* Media Container Styling */
+        .spot-media-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .spot-title {
+            color: #60a5fa;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .media-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 15px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: #60a5fa #1e293b;
+        }
+
+        .media-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .media-scroll::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        .media-scroll::-webkit-scrollbar-thumb {
+            background: #60a5fa;
+            border-radius: 10px;
+        }
+
+        .media-item {
+            flex: 0 0 auto;
+            width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+        }
+
+        /* Content Styling */
+        .spot-content {
+            color: #e2e8f0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .spot-content p {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(145deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        .feature i {
+            color: #60a5fa;
+            font-size: 1.5rem;
+        }
+
+        .feature span {
+            color: #e2e8f0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* Animation Effects */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spot-card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .spot-card h2 {
+                font-size: 2rem;
+            }
+
+            .spot-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Hover Effects for Interactive Elements */
+        .spot-media-container:hover {
+            border-color: rgba(96, 165, 250, 0.4);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.1);
+        }
+
+        .feature:hover i {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .feature:hover span {
+            color: #ffffff;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #60a5fa;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            position: relative;
+            color: #e2e8f0;
+            box-shadow: 0 0 30px rgba(96, 165, 250, 0.2);
+        }
+
+        .close-modal {
+            color: #60a5fa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #93c5fd;
+        }
+
+        .read-more-btn {
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .read-more-btn::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+        }
+
+        .read-more-btn:hover::after {
+            transform: translateX(5px);
+        }
+
+        .read-more-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Animation for button appearance */
+        @keyframes buttonFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .read-more-btn {
+            animation: buttonFadeIn 0.5s ease-out forwards;
+        }
+
+        /* Hover effect for the entire card */
+        .spot-card:hover .read-more-btn {
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+        }
+
+        /* Modal Content Styling */
+        .modal-content h3 {
+            color: #60a5fa;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content h4 {
+            color: #93c5fd;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+        }
+
+        .modal-content p {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+
+        .modal-content ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+
+        .modal-content li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
+
+        .modal-content li::before {
+            content: "•";
+            color: #60a5fa;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Map Styles */
+        .map-container {
+            margin-top: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-container h4 {
+            margin-bottom: 15px;
+            color: #60a5fa;
+            text-align: center;
+        }
+
+        .map-container iframe {
+            border-radius: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        .map-container iframe:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Kuppam KADA Tourism</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cultural-calendar.html">Cultural Calendar</a></li>
+            <li><a href="tourist-spots.html" class="active">Tourist Spots</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main style="margin-top: 80px;">
+        <div class="spots-container">
+            <h1 style="text-align: center; margin-bottom: 3rem;">Tourist Spots in Kuppam</h1>
+
+            <!-- Kaigal Falls -->
+            <div class="spot-card">
+                <div class="spot-image-container">
+                   <center> <img src="images/kaigall falls.jpeg" alt="Kaigal Falls" class="spot-image"></center>
+                </div>
+                <div class="spot-content">
+                    <h2>Kaigal Falls</h2>
+                    <div class="spot-media-container">
+                        <h3 class="spot-title">Gallery</h3>
+                        <div class="media-scroll">
+                            <div class="media-item">
+                                <video controls>
+                                    <source src="kuppamD_images/kaigall falls/falls.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-item">
+                                <video controls>
+                                    <source src="kuppamD_images/kaigall falls/falls2.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Experience the mesmerizing beauty of Kaigal Falls, a stunning natural waterfall cascading through rocky terrain. The falls are particularly spectacular during the monsoon season, creating a breathtaking spectacle of nature's power and beauty. Perfect for nature lovers and photography enthusiasts.</p>
+                    <div class="spot-features">
+                        <div class="feature">
+                            <i class="fas fa-water"></i>
+                            <span>Waterfall</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-camera"></i>
+                            <span>Photography</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-hiking"></i>
+                            <span>Trekking</span>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" data-spot="kaigal">Read More</button>
+                    <div class="hidden-description" id="kaigal-description" style="display: none;">
+                        <h3>Kaigal Falls – A Hidden Gem in Andhra Pradesh</h3>
+                        <h4>The Waterfall</h4>
+                        <p>Nestled in the Chittoor district of Andhra Pradesh, Kaigal Falls, also known as Dumukurallu Waterfalls, is a breathtaking natural attraction located within the Koundinya Wildlife Sanctuary. The waterfall originates from the Kaigal stream and cascades down from a height of about 40 feet, forming a stunning pool at the base.</p>
+                        
+                        <h4>Photography Paradise</h4>
+                        <p>Kaigal Falls is a dream destination for photographers, offering a perfect blend of natural beauty and wildlife. The lush greenery, flowing water, and rocky terrain provide stunning backdrops for nature and landscape photography.</p>
+                        
+                        <h4>Trekking & Adventure</h4>
+                        <p>For adventure enthusiasts, Kaigal Falls offers an exciting trekking experience through forested trails, rocky paths, and small streams. The trek is moderate, making it accessible to both beginners and experienced hikers.</p>
+                        
+                        <h4>Plan Your Visit</h4>
+                        <ul>
+                            <li>Best Time to Visit: July to December</li>
+                            <li>Location: Near Palamaner, Chittoor district, Andhra Pradesh</li>
+                            <li>Activities: Trekking, photography, nature exploration, and picnic</li>
+                        </ul>
+
+                        <div class="map-container">
+                            <h4>Location Map</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.0457787079387!2d78.58859731482045!3d12.763927990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad94b13e4e7c67%3A0x2f89e89d42a8aa9c!2sKaigal%20Falls!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mallappa Konda -->
+            <div class="spot-card">
+                <div class="spot-image-container">
+                  <center> <img src="images/mallappakonda.jpeg" alt="Mallappa Konda" class="spot-image"></center>
+                </div>
+                <div class="spot-content">
+                    <h2>Mallappa Konda</h2>
+                    <div class="spot-media-container">
+                        <h3 class="spot-title">Gallery</h3>
+                        <div class="media-scroll">
+                            <div class="media-item">
+                                <img src="kuppamD_images/mallapa konda/Screenshot 2025-03-28 163834.png" alt="Mallapa Konda">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/mallapa konda/Screenshot 2025-03-28 163802.png" alt="Mallapa Konda">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/mallapa konda/Screenshot 2025-03-28 162713.png" alt="Mallapa Konda">
+                            </div>
+                            <div class="media-item rotated">
+                                <video controls class="video-rotate-270">
+                                    <source src="kuppamD_images/mallapa konda/konda.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-item rotated">
+                                <video controls class="video-rotate-270">
+                                    <source src="kuppamD_images/mallapa konda/konda1.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-item rotated">
+                                <video controls class="video-rotate-270">
+                                    <source src="kuppamD_images/mallapa konda/mallappa.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                            <div class="media-item">
+                                <video controls>
+                                    <source src="kuppamD_images/mallapa konda/mkonda.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Discover the spiritual and natural beauty of Mallappa Konda, a sacred hill temple dedicated to Lord Mallappa. This ancient temple offers panoramic views of the surrounding landscape and stands as a testament to the region's rich cultural heritage.</p>
+                    <div class="spot-features">
+                        <div class="feature">
+                            <i class="fas fa-mountain"></i>
+                            <span>Hill Temple</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-pray"></i>
+                            <span>Spiritual Site</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-eye"></i>
+                            <span>Scenic Views</span>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" data-spot="mallapa">Read More</button>
+                    <div class="hidden-description" id="mallapa-description" style="display: none;">
+            <h3>Mallapakonda – A Tranquil Hill Temple & Spiritual Retreat</h3>
+            <h4>The Hill Temple</h4>
+            <p>Mallapakonda is a serene and sacred hilltop destination located in the Chittoor district of Andhra Pradesh. The highlight of this location is the Sri Mallappa Swamy Temple, an ancient shrine dedicated to Lord Mallappa (a form of Lord Shiva).</p>
+            
+            <h4>A Spiritual Haven</h4>
+            <p>The temple is an important spiritual site for devotees who visit to seek divine blessings and inner peace. It is particularly vibrant during festivals, drawing pilgrims and visitors from nearby regions.</p>
+            
+            <h4>Scenic Views & Natural Beauty</h4>
+            <p>Beyond its religious significance, Mallapakonda is known for its breathtaking panoramic views of the surrounding valleys, lush greenery, and rolling hills.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to March</li>
+                <li>Location: Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Spiritual visit, hill trekking, photography, and nature exploration</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sMallapakonda+Hill+Top/@12.7681086,78.2355669,17z/data=!3m1!4b1!4m6!3m5!1s0x3badc788ed16a429:0x2a7dbdd1fde6b9ce!8m2!3d12.7681086!4d78.2381418!16s%2Fg%2F11llwt9nt5?entry=ttu&g_ep=EgoyMDI1MDMyNS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- Kangundi Combined Section -->
+            <div class="spot-card">
+                <center>
+                <img src="kuppamD_images/kangundi/2.jpg" alt="Kangundi" class="spot-image" position="relative">  
+                </center>
+                <h2>Kangundi</h2>
+                <div class="spot-media-container">
+                    <h3 class="spot-title">Kangundi Fort Gallery</h3>
+                    <div class="media-scroll">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="kuppamD_images/kangundi/fort.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="kuppamD_images/kangundi/fort1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                <div class="spot-content">
+                    <h3>Kangundi Fort and Village</h3>
+                    <p>A historical fort and village showcasing rich heritage and architectural brilliance. The fort stands as a testament to the region's historical significance.</p>
+                    <div class="spot-features">
+                        <div class="feature">
+                            <i class="fas fa-fort-awesome"></i>
+                            <span>Historical Fort</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-history"></i>
+                            <span>Heritage Site</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-mountain"></i>
+                            <span>Scenic Views</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-archway"></i>
+                            <span>Architecture</span>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" data-spot="kangundi">Read More</button>
+                    <div class="hidden-description" id="kangundi-description" style="display: none;">
+                        <h3>Kangundi – A Timeless Fort of Heritage & Scenic Beauty</h3>
+                        <h4>A Historical Fort with a Glorious Past</h4>
+                        <p>Kangundi, located near Kuppam in the Chittoor district of Andhra Pradesh, is a site of great historical significance. The Kangundi Fort, built centuries ago, stands as a testament to the region's rich history.</p>
+                        
+                        <h4>A Heritage Site of Cultural Importance</h4>
+                        <p>Kangundi is not just a historical landmark but also a heritage site that reflects the cultural legacy of South India. The region has been influenced by various rulers, including the Vijayanagara Empire.</p>
+                        
+                        <h4>Breathtaking Scenic Views</h4>
+                        <p>Perched atop a hill, Kangundi Fort offers panoramic views of the surrounding landscapes. Visitors can enjoy stunning sunrises and sunsets.</p>
+                        
+                        <h4>Architectural Grandeur of the Fort</h4>
+                        <p>Though partially in ruins, the fort's architecture showcases traditional stone construction, fortified walls, and watchtowers, reflecting the engineering skills of ancient builders.</p>
+                        
+                        <h4>Plan Your Visit</h4>
+                        <ul>
+                            <li>Best Time to Visit: October to February</li>
+                            <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                            <li>Activities: Historical exploration, trekking, photography</li>
+                        </ul>
+
+                        <div class="map-container">
+                            <h4>Location Map</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sKangundi%20Fort!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Yamnur -->
+            <div class="spot-card">
+                <div class="spot-image-container">
+                    <center>
+                    <img src="images/yamnur.jpeg" alt="Yamnur" class="spot-image">
+                    </center>
+                    <h2><center><hr</center>Yamnur</center></h2>
+                </div>
+                <div class="spot-content">
+                    
+                    <div class="spot-media-container">
+                        <h3 class="spot-title">Gallery</h3>
+                        <div class="media-scroll">
+                            <div class="media-item">
+                                <img src="kuppamD_images/yamanur/nilayam.png" alt="Yamanur Temple">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/yamanur/2.jpg" alt="Yamanur Temple View">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/yamanur/3.jpg" alt="Yamanur Temple Architecture">
+                            </div>
+                        </div>
+                    </div>
+                    <p>Explore the historical marvels of Yamnur, featuring ancient temples with intricate Dravidian architecture. The site holds great archaeological significance and offers visitors a glimpse into the region's rich architectural heritage.</p>
+                    <div class="spot-features">
+                        <div class="feature">
+                            <i class="fas fa-landmark"></i>
+                            <span>Heritage</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>Architecture</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                        </div>
+                    </div>
+                    <button class="read-more-btn" data-spot="yamnur">Read More</button>
+                    <div class="hidden-description" id="yamnur-description" style="display: none;">
+                        <h3>Yamnur, Kuppam – A Hidden Treasure of Heritage & History</h3>
+                        <h4>Rich Heritage & Cultural Significance</h4>
+                        <p>Yamnur, a quaint village near Kuppam in the Chittoor district of Andhra Pradesh, is a place steeped in history and cultural heritage. This region has been home to ancient civilizations, dynasties, and spiritual traditions.</p>
+                        
+                        <h4>Architectural Marvels</h4>
+                        <p>Yamnur is known for its ancient temples and historical structures, showcasing intricate Dravidian-style architecture. The temples boast detailed carvings, stone sculptures, and inscriptions that speak of artistic brilliance.</p>
+                        
+                        <h4>A Glimpse into History</h4>
+                        <p>Yamnur's historical significance dates back several centuries, with references to trade routes, royal patronage, and religious developments in the region.</p>
+                        
+                        <h4>Plan Your Visit</h4>
+                        <ul>
+                            <li>Best Time to Visit: October to February</li>
+                            <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                            <li>Activities: Heritage sightseeing, temple visits, history exploration</li>
+                        </ul>
+
+                        <div class="map-container">
+                            <h4>Location Map</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sYamnur!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gudivanka -->
+            <div class="spot-card">
+                
+                <div class="spot-image-container">
+                    <center>
+                    <img src="kuppamD_images/gudivanka/1.jpg" alt="Gudivanka" class="spot-image">
+                    </center>
+                </div>
+                <h2>Gudivanka</h2>
+                <div class="spot-content">
+                    
+                    <div class="spot-media-container">
+                        <h3 class="spot-title">Gallery</h3>
+                        <div class="media-scroll">
+                            <div class="media-item">
+                                <img src="kuppamD_images/gudivanka/1.jpg" alt="Gudivanka View 1">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/gudivanka/2.jpg" alt="Gudivanka View 2">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/gudivanka/3.jpg" alt="Gudivanka View 3">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/gudivanka/4.jpg" alt="Gudivanka View 4">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="spot-description">A significant religious and cultural landmark in Kuppam. Known for its traditional temple architecture and spiritual importance, Gudivanka attracts devotees and tourists alike throughout the year.</p>
+                    <div class="spot-features">
+                        <div class="feature"><i class="fas fa-pray"></i> Religious Site</div>
+                        <div class="feature"><i class="fas fa-landmark"></i> Cultural Heritage</div>
+                        <div class="feature"><i class="fas fa-om"></i> Spiritual Center</div>
+                    </div>
+                    <button class="read-more-btn" data-spot="gudivanka">Read More</button>
+                    <div class="hidden-description" id="gudivanka-description" style="display: none;">
+                        <h3>Gudivanka – A Sacred Haven of Spirituality & Heritage</h3>
+                        <h4>A Revered Religious Site</h4>
+                        <p>Located near Kuppam in the Chittoor district of Andhra Pradesh, Gudivanka is a significant religious destination known for its ancient temple dedicated to Lord Shiva.</p>
+                        
+                        <h4>Cultural Heritage & Traditions</h4>
+                        <p>Gudivanka stands as an important site reflecting South Indian cultural and spiritual traditions. The temple architecture showcases intricate carvings and traditional Dravidian influences.</p>
+                        
+                        <h4>A Spiritual Center for Peace & Meditation</h4>
+                        <p>Beyond its religious importance, Gudivanka is regarded as a spiritual retreat, offering a peaceful environment for meditation, self-reflection, and rejuvenation.</p>
+                        
+                        <h4>Plan Your Visit</h4>
+                        <ul>
+                            <li>Best Time to Visit: October to March</li>
+                            <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                            <li>Activities: Temple visit, meditation, spiritual gatherings</li>
+                        </ul>
+
+                        <div class="map-container">
+                            <h4>Location Map</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sGudivanka!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chelimi Chenu -->
+            <div class="spot-card">
+              
+                <div class="spot-image-container">
+                    <center>
+                    <img src="kuppamD_images/chelimi chenu/img.jpg" alt="Chelimi Chenu" class="spot-image">
+                    </center>
+                </div>
+                <h2>Chelimi Chenu </h2>
+                <div class="spot-content">
+                    
+                    <div class="spot-media-container">
+                        <h3 class="spot-title">Gallery</h3>
+                        <div class="media-scroll">
+                            <div class="media-item">
+                                <img src="kuppamD_images/chelimi chenu/img.jpg" alt="Chelimi Chenu View 1">
+                            </div>
+                            <div class="media-item">
+                                <img src="kuppamD_images/chelimi chenu/img1.jpg" alt="Chelimi Chenu View 2">
+                            </div>
+                            <div class="media-item">
+                                <video controls>
+                                    <source src="kuppamD_images/chelimi chenu/falls.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="spot-description">A serene natural spot in Kuppam known for its peaceful surroundings and natural beauty. This location offers a perfect retreat for nature lovers and those seeking tranquility away from the city bustle.</p>
+                    <div class="spot-features">
+                        <div class="feature"><i class="fas fa-tree"></i> Natural Beauty</div>
+                        <div class="feature"><i class="fas fa-hiking"></i> Perfect for Nature Walks</div>
+                        <div class="feature"><i class="fas fa-camera"></i> Photography Spot</div>
+                    </div>
+                    <button class="read-more-btn" data-spot="chelimichenu">Read More</button>
+                    <div class="hidden-description" id="chelimichenu-description" style="display: none;">
+                        <h3>Chelimichenu – A Hidden Paradise of Natural Beauty</h3>
+                        <h4>A Scenic Escape into Nature</h4>
+                        <p>Chelimichenu, located near Kuppam in the Chittoor district of Andhra Pradesh, is a breathtaking destination known for its lush greenery, rolling hills, and serene landscapes.</p>
+                        
+                        <h4>Perfect for Nature Walks & Exploration</h4>
+                        <p>Chelimichenu is a nature enthusiast's dream, offering scenic trails that allow visitors to explore the region's flora and fauna.</p>
+                        
+                        <h4>A Stunning Photography Spot</h4>
+                        <p>For photographers, Chelimichenu presents endless opportunities to capture the beauty of nature. The vibrant greenery, rocky outcrops, and peaceful water bodies make for stunning compositions.</p>
+                        
+                        <h4>Plan Your Visit</h4>
+                        <ul>
+                            <li>Best Time to Visit: October to March</li>
+                            <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                            <li>Activities: Nature walks, trekking, photography, relaxation</li>
+                        </ul>
+
+                        <div class="map-container">
+                            <h4>Location Map</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sChelimichenu!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cultural-calendar.html">Cultural Calendar</a></li>
+                    <li><a href="tourist-spots.html">Tourist Spots</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Kuppam KADA Tourism. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    const spotDescriptions = {
+        kaigal: `
+            <h3>Kaigal Falls – A Hidden Gem in Andhra Pradesh</h3>
+            <h4>The Waterfall</h4>
+            <p>Nestled in the Chittoor district of Andhra Pradesh, Kaigal Falls, also known as Dumukurallu Waterfalls, is a breathtaking natural attraction located within the Koundinya Wildlife Sanctuary. The waterfall originates from the Kaigal stream and cascades down from a height of about 40 feet, forming a stunning pool at the base.</p>
+            
+            <h4>Photography Paradise</h4>
+            <p>Kaigal Falls is a dream destination for photographers, offering a perfect blend of natural beauty and wildlife. The lush greenery, flowing water, and rocky terrain provide stunning backdrops for nature and landscape photography.</p>
+            
+            <h4>Trekking & Adventure</h4>
+            <p>For adventure enthusiasts, Kaigal Falls offers an exciting trekking experience through forested trails, rocky paths, and small streams. The trek is moderate, making it accessible to both beginners and experienced hikers.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: July to December</li>
+                <li>Location: Near Palamaner, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Trekking, photography, nature exploration, and picnic</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.0457787079387!2d78.58859731482045!3d12.763927990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad94b13e4e7c67%3A0x2f89e89d42a8aa9c!2sKaigal%20Falls!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `,
+        mallapa: `
+            <h3>Mallapakonda – A Tranquil Hill Temple & Spiritual Retreat</h3>
+            <h4>The Hill Temple</h4>
+            <p>Mallapakonda is a serene and sacred hilltop destination located in the Chittoor district of Andhra Pradesh. The highlight of this location is the Sri Mallappa Swamy Temple, an ancient shrine dedicated to Lord Mallappa (a form of Lord Shiva).</p>
+            
+            <h4>A Spiritual Haven</h4>
+            <p>The temple is an important spiritual site for devotees who visit to seek divine blessings and inner peace. It is particularly vibrant during festivals, drawing pilgrims and visitors from nearby regions.</p>
+            
+            <h4>Scenic Views & Natural Beauty</h4>
+            <p>Beyond its religious significance, Mallapakonda is known for its breathtaking panoramic views of the surrounding valleys, lush greenery, and rolling hills.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to March</li>
+                <li>Location: Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Spiritual visit, hill trekking, photography, and nature exploration</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sMallapakonda!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `,
+        yamnur: `
+            <h3>Yamnur, Kuppam – A Hidden Treasure of Heritage & History</h3>
+            <h4>Rich Heritage & Cultural Significance</h4>
+            <p>Yamnur, a quaint village near Kuppam in the Chittoor district of Andhra Pradesh, is a place steeped in history and cultural heritage. This region has been home to ancient civilizations, dynasties, and spiritual traditions.</p>
+            
+            <h4>Architectural Marvels</h4>
+            <p>Yamnur is known for its ancient temples and historical structures, showcasing intricate Dravidian-style architecture. The temples boast detailed carvings, stone sculptures, and inscriptions that speak of artistic brilliance.</p>
+            
+            <h4>A Glimpse into History</h4>
+            <p>Yamnur's historical significance dates back several centuries, with references to trade routes, royal patronage, and religious developments in the region.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to February</li>
+                <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Heritage sightseeing, temple visits, history exploration</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sYamnur!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `,
+        gudivanka: `
+            <h3>Gudivanka – A Sacred Haven of Spirituality & Heritage</h3>
+            <h4>A Revered Religious Site</h4>
+            <p>Located near Kuppam in the Chittoor district of Andhra Pradesh, Gudivanka is a significant religious destination known for its ancient temple dedicated to Lord Shiva.</p>
+            
+            <h4>Cultural Heritage & Traditions</h4>
+            <p>Gudivanka stands as an important site reflecting South Indian cultural and spiritual traditions. The temple architecture showcases intricate carvings and traditional Dravidian influences.</p>
+            
+            <h4>A Spiritual Center for Peace & Meditation</h4>
+            <p>Beyond its religious importance, Gudivanka is regarded as a spiritual retreat, offering a peaceful environment for meditation, self-reflection, and rejuvenation.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to March</li>
+                <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Temple visit, meditation, spiritual gatherings</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sGudivanka!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `,
+        chelimichenu: `
+            <h3>Chelimichenu – A Hidden Paradise of Natural Beauty</h3>
+            <h4>A Scenic Escape into Nature</h4>
+            <p>Chelimichenu, located near Kuppam in the Chittoor district of Andhra Pradesh, is a breathtaking destination known for its lush greenery, rolling hills, and serene landscapes.</p>
+            
+            <h4>Perfect for Nature Walks & Exploration</h4>
+            <p>Chelimichenu is a nature enthusiast's dream, offering scenic trails that allow visitors to explore the region's flora and fauna.</p>
+            
+            <h4>A Stunning Photography Spot</h4>
+            <p>For photographers, Chelimichenu presents endless opportunities to capture the beauty of nature. The vibrant greenery, rocky outcrops, and peaceful water bodies make for stunning compositions.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to March</li>
+                <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Nature walks, trekking, photography, relaxation</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sChelimichenu!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `,
+        kangundi: `
+            <h3>Kangundi – A Timeless Fort of Heritage & Scenic Beauty</h3>
+            <h4>A Historical Fort with a Glorious Past</h4>
+            <p>Kangundi, located near Kuppam in the Chittoor district of Andhra Pradesh, is a site of great historical significance. The Kangundi Fort, built centuries ago, stands as a testament to the region's rich history.</p>
+            
+            <h4>A Heritage Site of Cultural Importance</h4>
+            <p>Kangundi is not just a historical landmark but also a heritage site that reflects the cultural legacy of South India. The region has been influenced by various rulers, including the Vijayanagara Empire.</p>
+            
+            <h4>Breathtaking Scenic Views</h4>
+            <p>Perched atop a hill, Kangundi Fort offers panoramic views of the surrounding landscapes. Visitors can enjoy stunning sunrises and sunsets.</p>
+            
+            <h4>Architectural Grandeur of the Fort</h4>
+            <p>Though partially in ruins, the fort's architecture showcases traditional stone construction, fortified walls, and watchtowers, reflecting the engineering skills of ancient builders.</p>
+            
+            <h4>Plan Your Visit</h4>
+            <ul>
+                <li>Best Time to Visit: October to February</li>
+                <li>Location: Near Kuppam, Chittoor district, Andhra Pradesh</li>
+                <li>Activities: Historical exploration, trekking, photography</li>
+            </ul>
+
+            <div class="map-container">
+                <h4>Location Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3891.8961612492387!2d78.33974731482007!3d12.734999990989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b8e9b2b2b2b%3A0x3a8b7b8e9b2b2b2b!2sKangundi%20Fort!5e0!3m2!1sen!2sin!4v1680168547685!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        `
+    };
+
+    // Modal functionality
+    const modal = document.getElementById('descriptionModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeBtn = document.querySelector('.close-modal');
+
+    document.querySelectorAll('.read-more-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const spotId = this.getAttribute('data-spot');
+            modalContent.innerHTML = spotDescriptions[spotId];
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+    </script>
+</body>
+</html>
